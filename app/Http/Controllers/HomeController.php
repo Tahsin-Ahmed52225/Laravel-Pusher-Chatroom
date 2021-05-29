@@ -33,7 +33,7 @@ class HomeController extends Controller
             $user->status = "Online";
             $user->save();
             //dd($user);
-            $user = User::where("status", "=", "Online")->get('id');
+            $user = User::where("status", "=", "Online")->get();
             // dd($user);
             event(new userActivity(Auth::user(), "Online"));
 
@@ -47,7 +47,7 @@ class HomeController extends Controller
         $user = Auth::user();
         $user->status = "Offline";
         $user->save();
-        event(new userActivity(Auth::user(), "left"));
+        // event(new userActivity(Auth::user(), "left"));
         Auth::logout();
         return view('welcome');
     }

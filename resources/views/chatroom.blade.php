@@ -48,22 +48,31 @@ channel.bind('sendMessage', function(data) {
   channel.bind('useractive',function(data){
       var tag = document.createElement("div");
       var obj = JSON.parse(JSON.stringify(data))
-      var user = {!! json_encode($user)  !!}
-      for
-    //  console.log(user);
-      tag.innerHTML =       '<li class="person" data-chat="person1">'+
-                                        '<div class="user">'+
-                                            '<img src="https://www.bootdey.com/img/Content/avatar/avatar3.png" alt="Retail Admin">'+
-                                            '<span class="status online"></span>'+
-                                        '</div>'+
-                                        '<p class="name-time">'+
-                                            '<span id="user" class="name">'+'Demo User'+'</span>'+
-                                        '</p>'+
-                                    '</li>'
-      var element = document.getElementById("activeUser");
-      element.appendChild(tag);
+      console.log(obj.user["id"]);
+      var user = {!! json_encode($user)  !!};
+      var count = 0;
+      user.forEach(element => {
+         if(obj.user["id"] == element["id"]){
+            count = 1;
+            console.log(count);
+         };
+         if(count != 1){
+            tag.innerHTML =       '<li class="person" data-chat="person1">'+
+                                                '<div class="user">'+
+                                                    '<img src="https://www.bootdey.com/img/Content/avatar/avatar3.png" alt="Retail Admin">'+
+                                                    '<span class="status online"></span>'+
+                                                '</div>'+
+                                                '<p class="name-time">'+
+                                                    '<span id="user" class="name">'+obj.user["name"]+'</span>'+
+                                                '</p>'+
+                                            '</li>'
+            var element = document.getElementById("activeUser");
+            element.appendChild(tag);
 
+         }
+      });
   });
+
 
 </script>
 
